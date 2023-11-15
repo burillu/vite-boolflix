@@ -33,3 +33,5 @@ export default {
 </script>
 
 <style lang="scss" scoped></style>
+
+<!-- Milestone 1 COmpleted -->
