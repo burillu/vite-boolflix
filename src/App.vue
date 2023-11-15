@@ -6,9 +6,11 @@
     <main class="bg-secondary h-100">
       <div class=" container">
         <div class="row">
+
           <div class="col-12 col-md-4 col-lg-3" v-for="movie in store.movieList">
             <AppCard :name="movie.title" :src="store.apiUrlImg + movie.poster_path" :subtitle="movie.original_title"
               :data1="movie.original_language" :data2="movie.vote_average" />
+
             <!-- <div>titolo :{{ movie.title }}</div>
             <div>original title :{{ movie.original_title }}</div>
             <div>original lang :{{ movie.original_language }}</div>
@@ -65,3 +67,5 @@ main {
   overflow-y: auto;
 }
 </style>
+
+<!-- Milestone 1 COmpleted -->
