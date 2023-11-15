@@ -9,7 +9,7 @@ export const store = reactive({
     },
     params: {
         api_key: 'b285e37a3d80a17dd8298c11e01cac11',
-        query: 'a',
+        query: '',
         language: 'it-IT'
     },
     movieList: [],

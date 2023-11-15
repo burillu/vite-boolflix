@@ -1,12 +1,13 @@
 <template>
-  <div class="my-wrapper">
+  <div :class="{ 'my-wrapper': !store.query }">
     <header>
       <AppHeader @search-input="queryModify" />
     </header>
-    <main class="bg-secondary h-100">
+    <main class="bg-secondary h-100 py-4">
       <div class=" container">
-        <div class="row">
-
+        <!-- container movies -->
+        <div class="row" id="movies">
+          <h2>Movies</h2>
           <div class="col-12 col-md-4 col-lg-3" v-for="movie in store.movieList">
             <AppCard :name="movie.title" :src="store.apiUrlImg + movie.poster_path" :subtitle="movie.original_title"
               :data1="movie.original_language" :data2="movie.vote_average" />
@@ -60,7 +61,7 @@ export default {
 <style lang="scss" scoped>
 .my-wrapper {
   height: 100vh;
-  overflow-y: hidden;
+
 }
 
 main {
