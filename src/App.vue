@@ -18,6 +18,13 @@
             <div>Vote :{{ movie.vote_average }}/10</div> -->
           </div>
         </div>
+        <div class="row" id="series">
+          <h2>Series</h2>
+          <div class="col-12 col-md-4 col-lg-3" v-for="serie in store.seriesList">
+            <AppCard :name="serie.name" :subtitle="serie.original_name" :data1="serie.original_language"
+              :data2="serie.vote_average" />
+          </div>
+        </div>
       </div>
     </main>
   </div>
@@ -28,6 +35,7 @@ import axios from 'axios';
 import { store } from './data/store.js'
 import AppHeader from './components/AppHeader.vue';
 import AppCard from './components/AppCard.vue';
+
 export default {
   name: "App",
   data() {
@@ -47,13 +55,21 @@ export default {
       this.store.params.query = input;
       //console.log(input);
       this.printMovies();
+      this.printSeries();
     },
+    printSeries() {
+      const url = this.store.apiUrl + this.store.endPoint.tv;
+      axios.get(url, { params: this.store.params }).then(resp => {
+        //console.log(resp.data.results);
+        this.store.seriesList = resp.data.results
+      })
+    }
 
   },
   created() {
 
   },
-  components: { AppHeader, AppCard },
+  components: { AppHeader, AppCard, AppCard },
 
 }
 </script>
