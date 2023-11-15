@@ -11,8 +11,10 @@
 
                 </ul>
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-danger" type="button">Search</button>
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                        v-model="inputStr">
+                    <button class="btn btn-outline-danger" type="button"
+                        @click="$emit('searchInput', inputStr)">Search</button>
                 </form>
             </div>
         </div>
@@ -21,7 +23,12 @@
 
 <script>
 export default {
-    name: 'AppHeader'
+    name: 'AppHeader',
+    data() {
+        return {
+            inputStr: ''
+        }
+    }
 }
 </script>
 
