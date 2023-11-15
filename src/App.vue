@@ -24,7 +24,8 @@
           <h2>Series</h2>
           <div class="col-12 col-md-4 col-lg-3" v-for="serie in store.seriesList">
             <AppCard :name="serie.name" :subtitle="serie.original_name" :data1="serie.original_language"
-              :data2="serie.vote_average" />
+              :data2="serie.vote_average" :src="store.apiUrlImg + serie.poster_path"
+              :srcFlag="setSrcFlag(serie.original_language)" />
           </div>
         </div>
       </div>
