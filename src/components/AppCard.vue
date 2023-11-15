@@ -1,9 +1,9 @@
 <template>
     <div :id="id">
-        <img :src="src" :alt="name">
+        <img :src="src" :alt="name" class="rounded-2">
         <div class="">
             <div>titolo :{{ name }}</div>
-            <div>original title :{{ subtilte }}</div>
+            <div>original title :{{ subtitle }}</div>
             <div>original lang :{{ data1 }}</div>
             <div>Vote :{{ data2 }}/10</div>
         </div>
@@ -18,7 +18,7 @@ export default {
         name: String,
         subtitle: String,
         data1: String,
-        data2: String,
+        data2: Number,
         id: Number,
     }
 }
