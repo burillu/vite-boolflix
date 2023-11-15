@@ -1,7 +1,7 @@
 <template>
   <div class="my-wrapper">
     <header>
-      <AppHeader />
+      <AppHeader @search-input="queryModify" />
     </header>
     <main class="bg-secondary h-100">
       <div class=" container">
@@ -32,15 +32,26 @@ export default {
       store
     };
   },
-  methods: {},
-  created() {
-    const url = this.store.apiUrl + this.store.endPoint.movie;
-    axios.get(url, { params: this.store.params }).then(resp => {
-      console.log(resp.data.results)
-      this.store.movieList = resp.data.results
-    })
+  methods: {
+    printMovies() {
+      const url = this.store.apiUrl + this.store.endPoint.movie;
+      axios.get(url, { params: this.store.params }).then(resp => {
+        //console.log(resp.data.results)
+        this.store.movieList = resp.data.results
+      })
+    },
+    queryModify(input) {
+      this.store.params.query = input;
+      //console.log(input);
+      this.printMovies();
+    },
+
   },
-  components: { AppHeader, AppCard }
+  created() {
+
+  },
+  components: { AppHeader, AppCard },
+
 }
 </script>
 
