@@ -18,7 +18,10 @@ export default {
 
   },
   created() {
-
+    const url = this.store.apiUrl + this.store.endPoint.movie;
+    axios.get(url, { params: this.store.params }).then(resp => {
+      console.log(resp)
+    })
   }
 }
 </script>
