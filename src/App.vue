@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Pippo</h1>
+    <h1>Pippo <i class="fa-brands fa-sass fa-fade"></i></h1>
   </div>
 </template>
 
@@ -18,10 +18,10 @@ export default {
 
   },
   created() {
-    const url = this.store.apiUrl + this.store.endPoint.movie;
-    axios.get(url, { params: this.store.params }).then(resp => {
-      console.log(resp)
-    })
+    // const url = this.store.apiUrl + this.store.endPoint.movie;
+    // axios.get(url, { params: this.store.params }).then(resp => {
+    //   console.log(resp)
+    // })
   }
 }
 </script>
