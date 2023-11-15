@@ -13,6 +13,12 @@ export default {
     return {
       store
     }
+  },
+  methods: {
+
+  },
+  created() {
+
   }
 }
 </script>
