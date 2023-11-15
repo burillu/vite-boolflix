@@ -4,7 +4,8 @@
         <div class="">
             <div>titolo :{{ name }}</div>
             <div>original title :{{ subtitle }}</div>
-            <div>original lang : <img class="my-flag" :src="'./images/flags/4x3/' + data1 + '.svg'" :alt="data1">
+            <div>original lang : <img class="my-flag" @error="$emit('setDefaultSrc', data1)" :src="srcFlag" :alt="data1">
+
             </div>
             <div>Vote :{{ data2 }}/10</div>
         </div>
@@ -16,11 +17,25 @@ export default {
     name: 'AppCard',
     props: {
         src: String,
+        srcFlag: String,
         name: String,
         subtitle: String,
         data1: String,
         data2: Number,
         id: Number,
+    },
+    data() {
+        return {
+            //srcString: `./images/flags/4x3/${data1}.svg`
+        }
+
+    },
+    methods: {
+        setDefaultImg() {
+            console.log('immagine non trovata');
+            //this.error = null;
+            //this.srcString = './images/default-lang.png'
+        }
     }
 }
 </script>

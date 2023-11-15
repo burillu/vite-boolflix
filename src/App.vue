@@ -9,8 +9,9 @@
         <div class="row" id="movies">
           <h2>Movies</h2>
           <div class="col-12 col-md-4 col-lg-3" v-for="movie in store.movieList">
-            <AppCard :name="movie.title" :src="store.apiUrlImg + movie.poster_path" :subtitle="movie.original_title"
-              :data1="movie.original_language" :data2="movie.vote_average" />
+            <AppCard @setDefaultImg="setDefaultsrc" :name="movie.title" :src="store.apiUrlImg + movie.poster_path"
+              :subtitle="movie.original_title" :srcFlag="setSrcFlag(movie.original_language)"
+              :data1="movie.original_language" :data2="movie.vote_average" :id="movie.id" />
 
             <!-- <div>titolo :{{ movie.title }}</div>
             <div>original title :{{ movie.original_title }}</div>
@@ -18,6 +19,7 @@
             <div>Vote :{{ movie.vote_average }}/10</div> -->
           </div>
         </div>
+        <!-- container series -->
         <div class="row" id="series">
           <h2>Series</h2>
           <div class="col-12 col-md-4 col-lg-3" v-for="serie in store.seriesList">
@@ -40,7 +42,10 @@ export default {
   name: "App",
   data() {
     return {
-      store
+      store,
+      srcString: `./images/flags/`,
+      errorLang: ['ca', 'de', 'en', 'fr', 'it', 'jp', 'kr', 'us']
+
     };
   },
   methods: {
@@ -63,7 +68,21 @@ export default {
         //console.log(resp.data.results);
         this.store.seriesList = resp.data.results
       })
-    }
+    },
+    setSrcFlag(lang) {
+      if (!this.errorLang.includes(lang)) {
+        return store.srcFlagDefault
+      } else {
+        const src = this.srcString + lang + '.svg';
+        return src;
+      }
+
+    },
+    // setDefaultsrc(data) {
+    //   this.errorLang = data;
+    //   this.setSrcFlag(data)
+
+    // }
 
   },
   created() {
