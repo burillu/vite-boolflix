@@ -1,8 +1,11 @@
 <template>
     <div :id="id">
-        <!-- <img :src="src" :alt="name"> -->
-        <div class="bg-warning">
-            <span>{{ name }}</span>
+        <img :src="src" :alt="name">
+        <div class="">
+            <div>titolo :{{ name }}</div>
+            <div>original title :{{ subtilte }}</div>
+            <div>original lang :{{ data1 }}</div>
+            <div>Vote :{{ data2 }}/10</div>
         </div>
     </div>
 </template>
@@ -13,6 +16,9 @@ export default {
     props: {
         src: String,
         name: String,
+        subtitle: String,
+        data1: String,
+        data2: String,
         id: Number,
     }
 }

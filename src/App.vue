@@ -4,10 +4,15 @@
       <AppHeader />
     </header>
     <main class="bg-secondary h-100">
-      <div class="container">
+      <div class=" container">
         <div class="row">
           <div class="col-12 col-md-4 col-lg-3" v-for="movie in store.movieList">
-            <AppCard :name="movie.title" />
+            <AppCard :name="movie.title" :src="store.apiUrlImg + movie.poster_path" :subtitle="movie.original_title"
+              :data1="movie.original_language" :data2="movie.vote_average" />
+            <!-- <div>titolo :{{ movie.title }}</div>
+            <div>original title :{{ movie.original_title }}</div>
+            <div>original lang :{{ movie.original_language }}</div>
+            <div>Vote :{{ movie.vote_average }}/10</div> -->
           </div>
         </div>
       </div>
@@ -31,7 +36,7 @@ export default {
   created() {
     const url = this.store.apiUrl + this.store.endPoint.movie;
     axios.get(url, { params: this.store.params }).then(resp => {
-      //console.log(resp.data.results)
+      console.log(resp.data.results)
       this.store.movieList = resp.data.results
     })
   },
@@ -42,5 +47,10 @@ export default {
 <style lang="scss" scoped>
 .my-wrapper {
   height: 100vh;
+  overflow-y: hidden;
+}
+
+main {
+  overflow-y: auto;
 }
 </style>
