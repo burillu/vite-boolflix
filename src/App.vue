@@ -9,9 +9,11 @@
         <div class="row" id="movies">
           <h2>Movies</h2>
           <div class="col-12 col-md-4 col-lg-3" v-for="movie in store.movieList">
+
             <AppCard :name="movie.title" :src="setCoverSrc(movie.poster_path)" :subtitle="movie.original_title"
               :srcFlag="setSrcFlag(movie.original_language)" :data1="movie.original_language" :data2="movie.vote_average"
-              :id="movie.id" />
+              :id="movie.id" :overview="movie.overview" />
+
 
             <!-- <div>titolo :{{ movie.title }}</div>
             <div>original title :{{ movie.original_title }}</div>
@@ -45,7 +47,8 @@ export default {
     return {
       store,
       srcString: `./images/flags/`,
-      errorLang: ['ca', 'de', 'en', 'fr', 'it', 'jp', 'kr', 'us']
+      errorLang: ['ca', 'de', 'en', 'fr', 'it', 'jp', 'kr', 'us'],
+
 
     };
   },

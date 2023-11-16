@@ -1,5 +1,5 @@
 <template>
-    <div :id="id">
+    <div :id="id" v-if="!hoverCover" @mouseover="hoverCover = true" @mouseleave="hoverCover = false">
         <img :src="src" :alt="name" class="rounded-2 my-img-card">
         <div class="">
             <div>titolo :{{ name }}</div>
@@ -12,7 +12,24 @@
             }}/10</div>
         </div>
     </div>
-</template>
+    <div v-else class="bg-black text-white p-2" id="overview" @mouseleave="hoverCover = false">
+        <div class="mb-3">
+            <div><span class="fw-bold">titolo:</span> {{ name }}</div>
+            <div><span class="fw-bold">original title:</span>{{ subtitle }}</div>
+            <div><span class="fw-bold">original lang:</span> <img class="my-flag" :src="srcFlag" :alt="data1">
+
+            </div>
+            <div> <span class="fw-bold">voto:</span><i v-for="n in 5" class="fa-star"
+                    :class="(n < avgStar ? 'fa-solid text-warning' : 'fa-regular')" /> <br>{{
+                        data2
+                    }}/10</div>
+        </div>
+        <div class="">
+            <p>{{ overview }}</p>
+        </div>
+
+    </div>
+</template >
 
 <script>
 export default {
@@ -25,10 +42,12 @@ export default {
         data1: String,
         data2: Number,
         id: Number,
+        overview: String
     },
     data() {
         return {
-            avgStar: Math.ceil(this.data2 / 2)
+            avgStar: Math.ceil(this.data2 / 2),
+            hoverCover: false
         }
 
     },
@@ -42,12 +61,17 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang = "scss" scoped >
 .my-img-card {
-    width: 100%
+    width: 100%;
 }
 
 .my-flag {
     width: 20px;
+}
+
+#overview {
+    height: 380px;
+    overflow-y: auto;
 }
 </style>
