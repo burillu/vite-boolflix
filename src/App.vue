@@ -17,7 +17,9 @@
                 <div class="col-7 col-md-10 col-lg-12">
                   <AppCard :name="movie.title" :src="setCoverSrc(movie.poster_path)" :subtitle="movie.original_title"
                     :srcFlag="setSrcFlag(movie.original_language)" :data1="movie.original_language"
-                    :data2="movie.vote_average" :id="movie.id" :overview="movie.overview" />
+                    :data2="movie.vote_average" :id="movie.id" :overview="movie.overview" :actors="store.cast"
+                    @get-info="getCast" />
+                  <!--  /> -->
                 </div>
               </div>
 
@@ -62,6 +64,7 @@ export default {
       store,
       srcString: `./images/flags/`,
       errorLang: ['ca', 'de', 'en', 'fr', 'it', 'jp', 'kr', 'us'],
+      // cast: []
 
 
     };
@@ -97,7 +100,7 @@ export default {
 
     },
     setCoverSrc(data) {
-      console.log(data);
+      //console.log(data);
       if (data) {
         const src = this.store.apiUrlImg + data
         return src
@@ -105,11 +108,23 @@ export default {
         return this.store.srcCoverDefault
       }
 
+    },
+    getCast(ident) {
+
+      const url = `${this.store.apiUrl}movie/${ident}${this.store.endPoint.credits}`;
+      axios.get(url, { params: { 'api_key': this.store.params.api_key } }).then(resp => {
+        console.log(resp.data.cast)
+        this.store.cast = resp.data.cast;
+        //this.cast = [];
+      })
     }
 
   },
   created() {
 
+  },
+  updated() {
+    //store.cast = []
   },
   components: { AppHeader, AppCard, AppCard },
 

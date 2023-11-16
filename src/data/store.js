@@ -7,7 +7,8 @@ export const store = reactive({
     srcCoverDefault: './images/default-cover.jpg',
     endPoint: {
         movie: 'search/movie',
-        tv: 'search/tv'
+        tv: 'search/tv',
+        credits: '/credits'
     },
     params: {
         api_key: 'b285e37a3d80a17dd8298c11e01cac11',
@@ -16,6 +17,10 @@ export const store = reactive({
     },
     movieList: [],
     seriesList: [],
+    cast: []
 
 
 });
+
+//api per conoscere il cast 
+//https://api.themoviedb.org/3/movie/{movie_id}/credits

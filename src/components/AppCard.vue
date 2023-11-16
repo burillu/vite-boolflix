@@ -23,13 +23,25 @@
                                     :alt="data1">
 
                             </div>
-                            <div> <span class="fw-bold">Voto:</span><i v-for="n in 5" class="fa-star"
-                                    :class="(n < avgStar ? 'fa-solid text-warning' : 'fa-regular')" /> <br>{{
-                                        data2
-                                    }}/10</div>
+                            <div>
+
+                                <span class="fw-bold">Voto:</span><i v-for="n in 5" class="fa-star"
+                                    :class="(n < avgStar ? 'fa-solid text-warning' : 'fa-regular')"></i> <br>
+                                <div>{{ data2 }}/10</div>
+                                <!-- aggiungere una i di informazioni per stampare in aggiunta i nomi degli attori e il genere -->
+                                <i @click="$emit('getInfo', id)" class="fa-solid fa-circle-info"></i>
+                                <div v-if="actors.length > 5" class="">
+                                    <div class="text-decoration-underline">cast:</div>
+                                    <span v-for=" actor in actor5"> {{ actor.name }} , </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+
+
                         </div>
                         <div class="">
-                            <p>{{ overview }}</p>
+                            <p><span class="text-decoration-underline">Trama:</span><br>{{ overview }}</p>
                         </div>
 
                     </div>
@@ -52,7 +64,8 @@ export default {
         data1: String,
         data2: Number,
         id: Number,
-        overview: String
+        overview: String,
+        actors: Array
     },
     data() {
         return {
@@ -66,6 +79,11 @@ export default {
             console.log('immagine non trovata');
             //this.error = null;
             //this.srcString = './images/default-lang.png'
+        }
+    },
+    computed: {
+        actor5() {
+            return this.actors.slice(0, 5);
         }
     }
 }
