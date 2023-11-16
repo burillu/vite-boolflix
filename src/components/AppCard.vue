@@ -17,13 +17,13 @@
                     <div class="bg-black text-white p-2 rounded-2" id="overview">
                         <!-- <div v-else class="bg-black text-white p-2" id="overview" @mouseleave="hoverCover = false"> -->
                         <div class="mb-3">
-                            <div><span class="fw-bold">titolo:</span> {{ name }}</div>
-                            <div><span class="fw-bold">original title:</span>{{ subtitle }}</div>
-                            <div><span class="fw-bold">original lang:</span> <img class="my-flag" :src="srcFlag"
+                            <div><span class="fw-bold">Titolo:</span> {{ name }}</div>
+                            <div><span class="fw-bold">Original Title:</span>{{ subtitle }}</div>
+                            <div><span class="fw-bold">Original Lang:</span> <img class="my-flag" :src="srcFlag"
                                     :alt="data1">
 
                             </div>
-                            <div> <span class="fw-bold">voto:</span><i v-for="n in 5" class="fa-star"
+                            <div> <span class="fw-bold">Voto:</span><i v-for="n in 5" class="fa-star"
                                     :class="(n < avgStar ? 'fa-solid text-warning' : 'fa-regular')" /> <br>{{
                                         data2
                                     }}/10</div>
@@ -106,7 +106,6 @@ export default {
     position: relative;
     width: 100%;
     height: 100%;
-    text-align: center;
     transition: transform 0.5s;
     transform-style: preserve-3d;
 }
