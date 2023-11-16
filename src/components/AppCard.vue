@@ -7,7 +7,9 @@
             <div>original lang : <img class="my-flag" :src="srcFlag" :alt="data1">
 
             </div>
-            <div>Vote :{{ data2 }}/10</div>
+            <div><i v-for="n in 5" class="fa-star" :class="(n < avgStar ? 'fa-solid text-warning' : 'fa-regular')" /> <br>{{
+                data2
+            }}/10</div>
         </div>
     </div>
 </template>
@@ -26,7 +28,7 @@ export default {
     },
     data() {
         return {
-            //srcString: `./images/flags/4x3/${data1}.svg`
+            avgStar: Math.ceil(this.data2 / 2)
         }
 
     },
