@@ -6,7 +6,7 @@
     <main class="bg-secondary h-100 py-4">
       <div class=" container">
         <!-- container movies -->
-        <div class="row" id="movies">
+        <div class="row gy-3" id="movies">
           <h2>Movies</h2>
           <div class="col-12 col-md-4 col-lg-3" v-for="movie in store.movieList">
 
@@ -22,12 +22,12 @@
           </div>
         </div>
         <!-- container series -->
-        <div class="row" id="series">
+        <div class="row gy-3" id="series">
           <h2>Series</h2>
           <div class="col-12 col-md-4 col-lg-3" v-for="serie in store.seriesList">
             <AppCard :name="serie.name" :subtitle="serie.original_name" :data1="serie.original_language"
               :data2="serie.vote_average" :src="setCoverSrc(serie.poster_path)"
-              :srcFlag="setSrcFlag(serie.original_language)" />
+              :srcFlag="setSrcFlag(serie.original_language)" :overview="serie.overview" />
           </div>
         </div>
       </div>
