@@ -110,4 +110,4 @@ main {
 }
 </style>
 
-<!-- Milestone 1 COmpleted -->
+<!-- Milestone 3 COmpleted -->
