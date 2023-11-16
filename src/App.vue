@@ -9,9 +9,9 @@
         <div class="row" id="movies">
           <h2>Movies</h2>
           <div class="col-12 col-md-4 col-lg-3" v-for="movie in store.movieList">
-            <AppCard @setDefaultImg="setDefaultsrc" :name="movie.title" :src="store.apiUrlImg + movie.poster_path"
-              :subtitle="movie.original_title" :srcFlag="setSrcFlag(movie.original_language)"
-              :data1="movie.original_language" :data2="movie.vote_average" :id="movie.id" />
+            <AppCard :name="movie.title" :src="setCoverSrc(movie.poster_path)" :subtitle="movie.original_title"
+              :srcFlag="setSrcFlag(movie.original_language)" :data1="movie.original_language" :data2="movie.vote_average"
+              :id="movie.id" />
 
             <!-- <div>titolo :{{ movie.title }}</div>
             <div>original title :{{ movie.original_title }}</div>
@@ -79,11 +79,16 @@ export default {
       }
 
     },
-    // setDefaultsrc(data) {
-    //   this.errorLang = data;
-    //   this.setSrcFlag(data)
+    setCoverSrc(data) {
+      console.log(data);
+      if (data) {
+        const src = this.store.apiUrlImg + data
+        return src
+      } else {
+        return this.store.srcCoverDefault
+      }
 
-    // }
+    }
 
   },
   created() {

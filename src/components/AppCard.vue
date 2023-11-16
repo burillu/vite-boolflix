@@ -4,7 +4,7 @@
         <div class="">
             <div>titolo :{{ name }}</div>
             <div>original title :{{ subtitle }}</div>
-            <div>original lang : <img class="my-flag" @error="$emit('setDefaultSrc', data1)" :src="srcFlag" :alt="data1">
+            <div>original lang : <img class="my-flag" :src="srcFlag" :alt="data1">
 
             </div>
             <div>Vote :{{ data2 }}/10</div>
