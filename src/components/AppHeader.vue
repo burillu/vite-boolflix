@@ -10,9 +10,9 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                 </ul>
-                <form class="d-flex" role="search">
+                <form class="d-flex" role="search" @submit.prevent>
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                        v-model="inputStr">
+                        v-model="inputStr" @keyup.enter="$emit('searchInput', inputStr)">
                     <button class="btn btn-outline-danger" type="button"
                         @click="$emit('searchInput', inputStr)">Search</button>
                 </form>
