@@ -75,7 +75,7 @@ export default {
 .my-img-card {
     width: 100%;
     height: 100%;
-    object-position: bottom;
+    //object-position: bottom;
 }
 
 .my-flag {
