@@ -8,9 +8,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li>
 
+                    </li>
                 </ul>
+
                 <form class="d-flex" role="search" @submit.prevent>
+                    <AppSelect />
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
                         v-model="inputStr" @keyup.enter="$emit('searchInput', inputStr)">
                     <button class="btn btn-outline-danger" type="button"
@@ -22,13 +26,16 @@
 </template>
 
 <script>
+import AppSelect from './AppSelect.vue';
+
 export default {
-    name: 'AppHeader',
+    name: "AppHeader",
     data() {
         return {
-            inputStr: ''
-        }
-    }
+            inputStr: ""
+        };
+    },
+    components: { AppSelect }
 }
 </script>
 
