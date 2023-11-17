@@ -15,7 +15,7 @@
           <!-- container movies -->
           <div class="row gy-3 py-2" id="movies">
             <h2>Movies</h2>
-            <div class="col-12 col-md-6 col-lg-4 col-xl-3" v-for="movie in store.movieList">
+            <div class="col-12 col-md-6 col-lg-4 col-xl-3" v-for="movie in filterMovies">
               <div class="row justify-content-center">
                 <div class="col-7 col-md-10 col-lg-12">
                   <AppCard :name="movie.title" :src="setCoverSrc(movie.poster_path)" :subtitle="movie.original_title"
@@ -81,8 +81,12 @@ export default {
       const urlTv = this.store.apiUrl + this.store.endPoint.tv;
       //chiamata axios
       Promise.all([this.getAxiosCall(urlMovies, this.store.params), this.getAxiosCall(urlTv, this.store.params)]).then(resp => {
-        this.store.movieList = resp[0].data.results;
-        this.store.seriesList = resp[1].data.results;
+        const movies = resp[0].data.results;
+        const series = resp[1].data.results;
+
+
+        this.store.movieList = movies;
+        this.store.seriesList = series;
 
       }).catch(err => {
         //error catched
@@ -208,7 +212,19 @@ export default {
 
   },
   computed: {
+    filterMovies() {
+      if (this.store.selected && this.store.movieList) {
+        const filtered = this.store.movieList.filter(el => {
+          console.log(el.genre_ids);
+          console.log(this.store.selected);
+          return el.genre_ids.includes(this.store.selected);
 
+        })
+        return filtered;
+      } else {
+        return this.store.movieList;
+      }
+    }
   },
   updated() {
     //store.cast = []
