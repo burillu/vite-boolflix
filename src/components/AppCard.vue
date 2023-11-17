@@ -54,6 +54,7 @@
 </template >
 
 <script>
+import { store } from '../data/store.js'
 export default {
     name: 'AppCard',
     props: {
@@ -65,26 +66,51 @@ export default {
         data2: Number,
         id: Number,
         overview: String,
-        actors: Array
+        actors: Array,
+        genreIds: Array
     },
     data() {
         return {
             avgStar: Math.ceil(this.data2 / 2),
-            hoverCover: false
+            hoverCover: false,
+            store
         }
 
     },
     methods: {
-        setDefaultImg() {
-            console.log('immagine non trovata');
-            //this.error = null;
-            //this.srcString = './images/default-lang.png'
+        getGenresName() {
+            //tentativo 1
+            // const found = this.store.genresList.find((element) => {
+            //     element.id 
+            // });
+            //tentativo2 con find
+            // const genreFound= this.store.genresList.find(element => {
+
+
+            //     return element.id===
+            //     for (let index = 0; index < this.store.genreIds.length; index++) {
+            //         const element = this.store.genresList[index];
+            //         i
+            //     }
+
+            // })
+            //tentativo con for in
+            const genresFounds = [];
+            for (const element of this.store.genresList) {
+                if (this.genreIds.includes(element.id)) {
+                    genresFounds.push(element);
+                }
+            }
+            return console.log(genresFounds)
+
         }
     },
-    computed: {
+    created() {
         // actor5() {
         //     return this.actors.slice(0, 5);
         // }
+        //console.log(this.getGenresName())
+        this.getGenresName();
     }
 }
 </script>

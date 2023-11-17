@@ -18,7 +18,7 @@
                   <AppCard :name="movie.title" :src="setCoverSrc(movie.poster_path)" :subtitle="movie.original_title"
                     :srcFlag="setSrcFlag(movie.original_language)" :data1="movie.original_language"
                     :data2="movie.vote_average" :id="movie.id" :overview="movie.overview" :actors="movie.cast"
-                    @get-info="getCast($event, movie)" />
+                    :genreIds="movie.genre_ids" @get-info="getCast($event, movie)" />
                   <!--  /> -->
                 </div>
               </div>
@@ -178,7 +178,7 @@ export default {
         }
 
 
-        console.log(store.genresList);
+        //console.log(store.genresList);
       })
 
     }
