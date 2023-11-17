@@ -251,4 +251,4 @@ div.container {
 }
 </style>
 
-<!-- Milestone 5 COmpleted -->
+<!-- Milestone 6 COmpleted -->
