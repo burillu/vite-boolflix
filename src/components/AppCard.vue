@@ -30,10 +30,10 @@
                                 <div>{{ data2 }}/10</div>
                                 <!-- aggiungere una i di informazioni per stampare in aggiunta i nomi degli attori e il genere -->
                                 <i @click="$emit('getInfo', id)" class="fa-solid fa-circle-info"></i>
-                                <div v-if="actors.length > 5" class="">
+                                <!-- <div v-if="actors.length > 5" class="">
                                     <div class="text-decoration-underline">cast:</div>
                                     <span v-for=" actor in actor5"> {{ actor.name }} , </span>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div>

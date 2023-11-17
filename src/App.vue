@@ -17,8 +17,8 @@
                 <div class="col-7 col-md-10 col-lg-12">
                   <AppCard :name="movie.title" :src="setCoverSrc(movie.poster_path)" :subtitle="movie.original_title"
                     :srcFlag="setSrcFlag(movie.original_language)" :data1="movie.original_language"
-                    :data2="movie.vote_average" :id="movie.id" :overview="movie.overview" :actors="store.cast"
-                    @get-info="getCast" />
+                    :data2="movie.vote_average" :id="movie.id" :overview="movie.overview" :actors="movie.cast"
+                    @get-info="getCast($event, movie)" />
                   <!--  /> -->
                 </div>
               </div>
@@ -109,12 +109,27 @@ export default {
       }
 
     },
-    getCast(ident) {
+    getCast(ident, movie) {
 
       const url = `${this.store.apiUrl}movie/${ident}${this.store.endPoint.credits}`;
       axios.get(url, { params: { 'api_key': this.store.params.api_key } }).then(resp => {
-        console.log(resp.data.cast)
-        this.store.cast = resp.data.cast;
+        //console.log(resp.data.cast)
+        if (resp.data.cast.length > 5) {
+          const cast = [];
+          for (let index = 0; index < 5; index++) {
+            const actor = resp.data.cast[index];
+            cast.push(actor)
+
+
+
+          }
+          movie.cast = cast;
+          console.log(movie);
+        } else {
+          movie.cast = resp.data.cast
+        }
+
+        // this.store.cast = resp.data.cast;
         //this.cast = [];
       })
     }
