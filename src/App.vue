@@ -5,6 +5,9 @@
     </header>
     <main class="bg-secondary h-100 py-4">
       <div class="container">
+        <div v-if="onLoading" class="">
+          <AppSpinnerLoad />
+        </div>
         <div v-if="!store.params.query">
           fai una Ricerca
         </div>
@@ -46,6 +49,7 @@
           </div>
         </div>
 
+
       </div>
     </main>
   </div>
@@ -56,6 +60,7 @@ import axios from 'axios';
 import { store } from './data/store.js'
 import AppHeader from './components/AppHeader.vue';
 import AppCard from './components/AppCard.vue';
+import AppSpinnerLoad from './components/AppSpinnerLoad.vue'
 
 export default {
   name: "App",
@@ -64,13 +69,14 @@ export default {
       store,
       srcString: `./images/flags/`,
       errorLang: ['ca', 'de', 'en', 'fr', 'it', 'jp', 'kr', 'us'],
-      // cast: []
+      onLoading: false
 
 
     };
   },
   methods: {
     printMoviesAndTv() {
+      this.onLoading = true;
       const urlMovies = this.store.apiUrl + this.store.endPoint.movie;
       const urlTv = this.store.apiUrl + this.store.endPoint.tv;
       //chiamata axios
@@ -78,14 +84,13 @@ export default {
         this.store.movieList = resp[0].data.results;
         this.store.seriesList = resp[1].data.results;
 
+      }).catch(err => {
+        //error catched
+      }).finally(() => {
+        //stard spinner loader
+        this.onLoading = false;
       })
 
-
-
-      // axios.get(url, { params: this.store.params }).then(resp => {
-      //   //console.log(resp.data.results)
-      //   this.store.movieList = resp.data.results
-      // })
     },
     queryModify(input) {
       this.store.params.query = input;
@@ -124,6 +129,7 @@ export default {
     },
     getGenresName(ids, movie) {
       //tentativo con for in
+
       const genresFounds = [];
       for (const element of this.store.genresList) {
         if (ids.includes(element.id)) {
@@ -134,6 +140,11 @@ export default {
 
     },
     getCast(ident, movie) {
+      if (movie.cast) {
+        return
+      }
+      this.onLoading = true;
+
 
       const url = `${this.store.apiUrl}movie/${ident}${this.store.endPoint.credits}`;
       axios.get(url, { params: { 'api_key': this.store.params.api_key } }).then(resp => {
@@ -148,19 +159,23 @@ export default {
 
           }
           movie.cast = cast;
-          console.log(movie);
+          //console.log(movie);
         } else {
           movie.cast = resp.data.cast
         }
 
         // this.store.cast = resp.data.cast;
         //this.cast = [];
+      }).finally(() => {
+        //stard spinner loader
+        this.onLoading = false;
       })
     },
     getAxiosCall(url, params) {
       return axios.get(url, { params });
     },
     getGenre() {
+      this.onLoading = true;
       const urlMovie = this.store.apiUrl + this.store.endPoint.genre.movie;
       const urlTv = this.store.apiUrl + this.store.endPoint.genre.tv;
       Promise.all([this.getAxiosCall(urlMovie, { 'api_key': store.params.api_key }), this.getAxiosCall(urlTv, { 'api_key': store.params.api_key })]).then(resp => {
@@ -179,12 +194,16 @@ export default {
 
 
         //console.log(store.genresList);
+      }).finally(() => {
+        //stop spinner loader
+        this.onLoading = false;
       })
 
     }
 
   },
   created() {
+
     this.getGenre()
 
   },
@@ -193,8 +212,9 @@ export default {
   },
   updated() {
     //store.cast = []
+
   },
-  components: { AppHeader, AppCard, AppCard },
+  components: { AppHeader, AppCard, AppCard, AppSpinnerLoad },
 
 }
 </script>
