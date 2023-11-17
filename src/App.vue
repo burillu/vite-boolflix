@@ -70,26 +70,35 @@ export default {
     };
   },
   methods: {
-    printMovies() {
-      const url = this.store.apiUrl + this.store.endPoint.movie;
-      axios.get(url, { params: this.store.params }).then(resp => {
-        //console.log(resp.data.results)
-        this.store.movieList = resp.data.results
+    printMoviesAndTv() {
+      const urlMovies = this.store.apiUrl + this.store.endPoint.movie;
+      const urlTv = this.store.apiUrl + this.store.endPoint.tv;
+      //chiamata axios
+      Promise.all([this.getAxiosCall(urlMovies, this.store.params), this.getAxiosCall(urlTv, this.store.params)]).then(resp => {
+        this.store.movieList = resp[0].data.results;
+        this.store.seriesList = resp[1].data.results;
+
       })
+
+
+
+      // axios.get(url, { params: this.store.params }).then(resp => {
+      //   //console.log(resp.data.results)
+      //   this.store.movieList = resp.data.results
+      // })
     },
     queryModify(input) {
       this.store.params.query = input;
       //console.log(input);
-      this.printMovies();
-      this.printSeries();
+      this.printMoviesAndTv();
     },
-    printSeries() {
-      const url = this.store.apiUrl + this.store.endPoint.tv;
-      axios.get(url, { params: this.store.params }).then(resp => {
-        //console.log(resp.data.results);
-        this.store.seriesList = resp.data.results
-      })
-    },
+    // printSeries() {
+    //   const url = this.store.apiUrl + this.store.endPoint.tv;
+    //   axios.get(url, { params: this.store.params }).then(resp => {
+    //     //console.log(resp.data.results);
+    //     this.store.seriesList = resp.data.results
+    //   })
+    // },
     setSrcFlag(lang) {
       if (!this.errorLang.includes(lang)) {
         return store.srcFlagDefault
@@ -158,31 +167,7 @@ export default {
         const genresMovie = resp[0].data.genres;
         this.store.genresList = genresMovie;
         const genresTv = resp[1].data.genres;
-        //const genres = genresMovie.concat(genresTv)
-        //console.log(genresMovie);
-        //primo tentativo
-        // for (let index = 0; index < genresTv.length; index++) {
-        //   const element = genresTv[index];
-        //   //console.log(element);
-        //   if (!genresMovie.includes(element)) {
-        //     genresMovie.push(element)
-        //   }
 
-        // }
-        //secondo tentativo
-        // genres.forEach((el, i) => {
-        //   const genMovie = el[i];
-        //   for (let index = 0; index < resp[1].length; index++) {
-        //     const element = resp[1][index];
-        //     if (!genMovie.name === element.name) {
-        //       genres.push(element)
-        //     }
-
-        //   }
-        // });
-        //terzo tentativo
-        //genres.reduce()
-        //quarto tentativo JSON.stringify()
         for (let index = 0; index < genresTv.length; index++) {
           const element = genresTv[index];
           //console.log(element);
