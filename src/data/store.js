@@ -8,7 +8,8 @@ export const store = reactive({
     endPoint: {
         movie: 'search/movie',
         tv: 'search/tv',
-        credits: '/credits'
+        credits: '/credits',
+        genre: { movie: 'genre/movie/list', tv: 'genre/tv/list' }
     },
     params: {
         api_key: 'b285e37a3d80a17dd8298c11e01cac11',
@@ -17,6 +18,7 @@ export const store = reactive({
     },
     movieList: [],
     seriesList: [],
+    genresList: [],
     cast: []
 
 

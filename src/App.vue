@@ -132,10 +132,63 @@ export default {
         // this.store.cast = resp.data.cast;
         //this.cast = [];
       })
+    },
+    getAxiosCall(url, params) {
+      return axios.get(url, { params });
+    },
+    getGenre() {
+      const urlMovie = this.store.apiUrl + this.store.endPoint.genre.movie;
+      const urlTv = this.store.apiUrl + this.store.endPoint.genre.tv;
+      Promise.all([this.getAxiosCall(urlMovie, { 'api_key': store.params.api_key }), this.getAxiosCall(urlTv, { 'api_key': store.params.api_key })]).then(resp => {
+        const genresMovie = resp[0].data.genres;
+        this.store.genresList = genresMovie;
+        const genresTv = resp[1].data.genres;
+        //const genres = genresMovie.concat(genresTv)
+        //console.log(genresMovie);
+        //primo tentativo
+        // for (let index = 0; index < genresTv.length; index++) {
+        //   const element = genresTv[index];
+        //   //console.log(element);
+        //   if (!genresMovie.includes(element)) {
+        //     genresMovie.push(element)
+        //   }
+
+        // }
+        //secondo tentativo
+        // genres.forEach((el, i) => {
+        //   const genMovie = el[i];
+        //   for (let index = 0; index < resp[1].length; index++) {
+        //     const element = resp[1][index];
+        //     if (!genMovie.name === element.name) {
+        //       genres.push(element)
+        //     }
+
+        //   }
+        // });
+        //terzo tentativo
+        //genres.reduce()
+        //quarto tentativo JSON.stringify()
+        for (let index = 0; index < genresTv.length; index++) {
+          const element = genresTv[index];
+          //console.log(element);
+          if (!JSON.stringify(genresMovie).includes(element.name)) {
+            store.genresList.push(element)
+          }
+
+        }
+
+
+        console.log(store.genresList);
+      })
+
     }
 
   },
   created() {
+    this.getGenre()
+
+  },
+  computed: {
 
   },
   updated() {
