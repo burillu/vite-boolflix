@@ -33,11 +33,14 @@
                                 <div v-if="actors" class="">
                                     <div class="text-decoration-underline">cast:</div>
                                     <span v-for=" actor in actors"> {{ actor.name }} , </span>
+
+                                    <div class="">
+                                        <div class="text-decoration-underline">genres:</div>
+                                        <span>" <span v-for=" gen in genres"> {{ gen.name }}, </span>,,, "</span>
+
+                                    </div>
                                 </div>
-                                <div class="">
-                                    <div class="text-decoration-underline">genres:</div>
-                                    <span v-for=" gen in genres"> {{ gen.name }} </span>
-                                </div>
+
                             </div>
                         </div>
                         <div>
