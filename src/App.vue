@@ -18,7 +18,7 @@
                   <AppCard :name="movie.title" :src="setCoverSrc(movie.poster_path)" :subtitle="movie.original_title"
                     :srcFlag="setSrcFlag(movie.original_language)" :data1="movie.original_language"
                     :data2="movie.vote_average" :id="movie.id" :overview="movie.overview" :actors="movie.cast"
-                    :genreIds="movie.genre_ids" @get-info="getCast($event, movie)" />
+                    :genres="movie.genresFounds" @get-info="getCreditAndGen($event, movie)" />
                   <!--  /> -->
                 </div>
               </div>
@@ -107,6 +107,21 @@ export default {
       } else {
         return this.store.srcCoverDefault
       }
+
+    },
+    getCreditAndGen(ident, movie) {
+      this.getCast(ident, movie);
+      this.getGenresName(movie.genre_ids, movie);
+    },
+    getGenresName(ids, movie) {
+      //tentativo con for in
+      const genresFounds = [];
+      for (const element of this.store.genresList) {
+        if (ids.includes(element.id)) {
+          genresFounds.push(element);
+        }
+      }
+      movie.genresFounds = genresFounds
 
     },
     getCast(ident, movie) {

@@ -34,6 +34,10 @@
                                     <div class="text-decoration-underline">cast:</div>
                                     <span v-for=" actor in actors"> {{ actor.name }} , </span>
                                 </div>
+                                <div class="">
+                                    <div class="text-decoration-underline">genres:</div>
+                                    <span v-for=" gen in genres"> {{ gen.name }} </span>
+                                </div>
                             </div>
                         </div>
                         <div>
@@ -67,7 +71,7 @@ export default {
         id: Number,
         overview: String,
         actors: Array,
-        genreIds: Array
+        genres: Array
     },
     data() {
         return {
@@ -101,7 +105,7 @@ export default {
                     genresFounds.push(element);
                 }
             }
-            return console.log(genresFounds)
+            return genresFounds
 
         }
     },
@@ -110,7 +114,7 @@ export default {
         //     return this.actors.slice(0, 5);
         // }
         //console.log(this.getGenresName())
-        this.getGenresName();
+        // this.getGenresName();
     }
 }
 </script>
