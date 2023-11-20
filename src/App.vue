@@ -255,12 +255,24 @@ export default {
         this.onLoading = false;
       })
 
+    },
+    getTop_rated() {
+      const url = this.store.apiUrl + 'movie' + this.store.endPoint.top_rated;
+      this.getAxiosCall(url, { 'api_key': this.store.params.api_key, 'language': this.store.params.language }).then(resp => {
+        this.store.top_ratedList = resp.data.results;
+        //return console.log(resp);
+      }).finally(() => {
+        // this.onLoading = false;
+      });
+      //return top_ratedList;
+
     }
 
   },
   created() {
 
     this.getGenre()
+    this.getTop_rated();
     //console.log(this.getPopular);
 
   },
@@ -298,17 +310,7 @@ export default {
         return this.store.seriesList;
       }
     },
-    getTop_rated() {
-      const url = this.store.apiUrl + 'movie' + this.store.endPoint.top_rated;
-      this.getAxiosCall(url, { 'api_key': this.store.params.api_key, 'language': this.store.params.language }).then(resp => {
-        this.store.top_ratedList = resp.data.results;
-        //return console.log(resp);
-      }).finally(() => {
-        // this.onLoading = false;
-      });
-      //return top_ratedList;
 
-    }
   },
   updated() {
     //store.cast = []
