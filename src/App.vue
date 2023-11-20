@@ -8,8 +8,26 @@
         <div v-if="onLoading" class="">
           <AppSpinnerLoad />
         </div>
+        <!-- Top-Rated-->
         <div v-if="!store.params.query">
-          fai una Ricerca
+          <h2>Top-Rated</h2>
+          <div class="row gy-3 py-2" id="movies">
+            <div class="col-12 col-md-6 col-lg-4 col-xl-3" v-for="movie in store.top_ratedList">
+              <div class="row justify-content-center">
+                <div class="col-7 col-md-10 col-lg-12">
+                  <AppCard :name="movie.title" :src="setCoverSrc(movie.poster_path)" :subtitle="movie.original_title"
+                    :srcFlag="setSrcFlag(movie.original_language)" :data1="movie.original_language"
+                    :data2="movie.vote_average" :id="movie.id" :overview="movie.overview" :actors="movie.cast"
+                    :genres="movie.genresFounds" @get-info="getCreditAndGen($event, movie)" />
+
+                </div>
+              </div>
+
+
+
+
+            </div>
+          </div>
         </div>
 
         <div v-else-if="store.errorMsg">
@@ -243,7 +261,7 @@ export default {
   created() {
 
     this.getGenre()
-    //console.log(Boolean(this.filterMovies))
+    //console.log(this.getPopular);
 
   },
   computed: {
@@ -279,6 +297,17 @@ export default {
       } else {
         return this.store.seriesList;
       }
+    },
+    getTop_rated() {
+      const url = this.store.apiUrl + 'movie' + this.store.endPoint.top_rated;
+      this.getAxiosCall(url, { 'api_key': this.store.params.api_key, 'language': this.store.params.language }).then(resp => {
+        this.store.top_ratedList = resp.data.results;
+        //return console.log(resp);
+      }).finally(() => {
+        // this.onLoading = false;
+      });
+      //return top_ratedList;
+
     }
   },
   updated() {

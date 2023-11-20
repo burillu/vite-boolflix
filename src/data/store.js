@@ -8,6 +8,7 @@ export const store = reactive({
     endPoint: {
         movie: 'search/movie',
         tv: 'search/tv',
+        top_rated: '/top_rated',
         credits: '/credits',
         genre: { movie: 'genre/movie/list', tv: 'genre/tv/list' }
     },
@@ -19,6 +20,7 @@ export const store = reactive({
     movieList: [],
     seriesList: [],
     genresList: [],
+    top_ratedList: [],
     cast: [],
     selected: '',
     errorMsg: ''
@@ -29,5 +31,5 @@ export const store = reactive({
 //api per conoscere il cast 
 //https://api.themoviedb.org/3/movie/{movie_id}/credits
 
-//api per i popular
-// https://api.themoviedb.org/3/movie/popular
+//api per i top_rated
+// https://api.themoviedb.org/3/movie/top_rated
