@@ -41,8 +41,9 @@
               <div class="row justify-content-center">
                 <div class="col-7 col-md-10 col-lg-12">
                   <AppCard :name="serie.name" :subtitle="serie.original_name" :data1="serie.original_language"
-                    :data2="serie.vote_average" :src="setCoverSrc(serie.poster_path)"
-                    :srcFlag="setSrcFlag(serie.original_language)" :overview="serie.overview" />
+                    :data2="serie.vote_average" :id="serie.id" :src="setCoverSrc(serie.poster_path)"
+                    :srcFlag="setSrcFlag(serie.original_language)" :actors="serie.cast" :genres="serie.genresFounds"
+                    :overview="serie.overview" @get-info="getCreditAndGen($event, serie)" />
                 </div>
               </div>
             </div>
@@ -144,13 +145,21 @@ export default {
 
     },
     getCast(ident, movie) {
+      console.log(ident);
+      console.log(movie);
       if (movie.cast) {
         return
       }
+
       this.onLoading = true;
+      let url;
+      if (movie.title) {
+        url = `${this.store.apiUrl}movie/${ident}${this.store.endPoint.credits}`;
+      } else if (movie.name) {
+        url = `${this.store.apiUrl}tv/${ident}${this.store.endPoint.credits}`;
+      }
+      console.log(url);
 
-
-      const url = `${this.store.apiUrl}movie/${ident}${this.store.endPoint.credits}`;
       axios.get(url, { params: { 'api_key': this.store.params.api_key } }).then(resp => {
         //console.log(resp.data.cast)
         if (resp.data.cast.length > 5) {
@@ -171,7 +180,7 @@ export default {
         // this.store.cast = resp.data.cast;
         //this.cast = [];
       }).finally(() => {
-        //stard spinner loader
+        //stop spinner loader
         this.onLoading = false;
       })
     },
