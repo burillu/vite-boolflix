@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'my-wrapper': !store.params.query }">
+  <div class="my-wrapper">
     <header>
       <AppHeader @search-input="queryModify" />
     </header>
@@ -18,13 +18,17 @@
           </div>
         </div>
         <div v-else>
+
+
+
+          <h2>Movies</h2>
           <div v-if="filterMovies < 1">
             Nessun risultato
           </div>
+          <!-- container movies -->
           <div v-else>
-            <!-- container movies -->
+
             <div class="row gy-3 py-2" id="movies">
-              <h2>Movies</h2>
               <div class="col-12 col-md-6 col-lg-4 col-xl-3" v-for="movie in filterMovies">
                 <div class="row justify-content-center">
                   <div class="col-7 col-md-10 col-lg-12">
@@ -38,21 +42,21 @@
 
 
 
-                <!-- <div>titolo :{{ movie.title }}</div>
-            <div>original title :{{ movie.original_title }}</div>
-            <div>original lang :{{ movie.original_language }}</div>
-            <div>Vote :{{ movie.vote_average }}/10</div> -->
+
               </div>
             </div>
 
           </div>
+
+
+
+          <h2>Series TV</h2>
           <div v-if="filterSeries < 1">
             Nessun risultato
           </div>
+          <!-- container series -->
           <div v-else>
-            <!-- container series -->
             <div class="row gy-3 py-2" id="series">
-              <h2>Series TV</h2>
               <div class="col-12 col-md-6 col-lg-4 col-xl-3" v-for="serie in filterSeries">
                 <div class="row justify-content-center">
                   <div class="col-7 col-md-10 col-lg-12">
@@ -288,7 +292,8 @@ export default {
 
 <style lang="scss" scoped>
 .my-wrapper {
-  height: 100vh;
+  height: calc(100vh - 56px);
+  //overflow-y: hidden;
 
 
 }
@@ -299,6 +304,10 @@ main {
 
 div.container {
   overflow-y: hidden;
+}
+
+header {
+  height: 56px;
 }
 </style>
 
