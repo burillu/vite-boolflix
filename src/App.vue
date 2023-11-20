@@ -4,7 +4,9 @@
       <AppHeader @search-input="queryModify" />
     </header>
     <main class="bg-secondary h-100 py-4">
+      <AppSelectLang />
       <div class="container">
+
         <div v-if="onLoading" class="">
           <AppSpinnerLoad />
         </div>
@@ -103,6 +105,7 @@ import { store } from './data/store.js'
 import AppHeader from './components/AppHeader.vue';
 import AppCard from './components/AppCard.vue';
 import AppSpinnerLoad from './components/AppSpinnerLoad.vue'
+import AppSelectLang from './components/AppSelectLang.vue';
 
 export default {
   name: "App",
@@ -316,7 +319,7 @@ export default {
     //store.cast = []
 
   },
-  components: { AppHeader, AppCard, AppCard, AppSpinnerLoad },
+  components: { AppHeader, AppCard, AppCard, AppSpinnerLoad, AppSelectLang },
 
 }
 </script>
