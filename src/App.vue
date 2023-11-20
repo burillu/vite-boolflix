@@ -37,7 +37,7 @@
           <!-- container series -->
           <div class="row gy-3 py-2" id="series">
             <h2>Series TV</h2>
-            <div class="col-12 col-md-6 col-lg-4 col-xl-3" v-for="serie in store.seriesList">
+            <div class="col-12 col-md-6 col-lg-4 col-xl-3" v-for="serie in filterSeries">
               <div class="row justify-content-center">
                 <div class="col-7 col-md-10 col-lg-12">
                   <AppCard :name="serie.name" :subtitle="serie.original_name" :data1="serie.original_language"
@@ -145,8 +145,7 @@ export default {
 
     },
     getCast(ident, movie) {
-      console.log(ident);
-      console.log(movie);
+
       if (movie.cast) {
         return
       }
@@ -158,7 +157,7 @@ export default {
       } else if (movie.name) {
         url = `${this.store.apiUrl}tv/${ident}${this.store.endPoint.credits}`;
       }
-      console.log(url);
+
 
       axios.get(url, { params: { 'api_key': this.store.params.api_key } }).then(resp => {
         //console.log(resp.data.cast)
@@ -232,6 +231,19 @@ export default {
         return filtered;
       } else {
         return this.store.movieList;
+      }
+    },
+    filterSeries() {
+      if (this.store.selected && this.store.seriesList) {
+        const filtered = this.store.seriesList.filter(el => {
+          //console.log(el.genre_ids);
+          //console.log(this.store.selected);
+          return el.genre_ids.includes(this.store.selected);
+
+        })
+        return filtered;
+      } else {
+        return this.store.seriesList;
       }
     }
   },
