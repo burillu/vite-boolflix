@@ -138,6 +138,15 @@ export default {
     width: 100%;
 }
 
+i.fa-circle-info {
+    cursor: pointer
+}
+
+i.fa-circle-info:hover {
+    text-shadow: 0 0 2px white;
+    transform: scale(1.2);
+}
+
 #overview {
     overflow-y: auto;
     height: 100%;

@@ -28,3 +28,6 @@ export const store = reactive({
 
 //api per conoscere il cast 
 //https://api.themoviedb.org/3/movie/{movie_id}/credits
+
+//api per i popular
+// https://api.themoviedb.org/3/movie/popular
