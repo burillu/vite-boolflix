@@ -11,6 +11,11 @@
         <div v-if="!store.params.query">
           fai una Ricerca
         </div>
+        <div v-else-if="store.errorMsg">
+          <div class="alert alert-danger" role="alert">
+            {{ store.errorMsg }}
+          </div>
+        </div>
         <div v-else>
           <!-- container movies -->
           <div class="row gy-3 py-2" id="movies">
@@ -77,6 +82,7 @@ export default {
   },
   methods: {
     printMoviesAndTv() {
+      this.store.errorMsg = '';
       this.onLoading = true;
       const urlMovies = this.store.apiUrl + this.store.endPoint.movie;
       const urlTv = this.store.apiUrl + this.store.endPoint.tv;
@@ -91,6 +97,7 @@ export default {
 
       }).catch(err => {
         //error catched
+        this.store.errorMsg = err.message
       }).finally(() => {
         //stard spinner loader
         this.onLoading = false;
@@ -223,8 +230,8 @@ export default {
     filterMovies() {
       if (this.store.selected && this.store.movieList) {
         const filtered = this.store.movieList.filter(el => {
-          console.log(el.genre_ids);
-          console.log(this.store.selected);
+          //console.log(el.genre_ids);
+          //console.log(this.store.selected);
           return el.genre_ids.includes(this.store.selected);
 
         })

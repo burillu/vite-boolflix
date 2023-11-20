@@ -21,6 +21,7 @@ export const store = reactive({
     genresList: [],
     cast: [],
     selected: '',
+    errorMsg: ''
 
 
 });
