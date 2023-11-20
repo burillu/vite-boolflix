@@ -11,48 +11,62 @@
         <div v-if="!store.params.query">
           fai una Ricerca
         </div>
+
         <div v-else-if="store.errorMsg">
           <div class="alert alert-danger" role="alert">
             {{ store.errorMsg }}
           </div>
         </div>
         <div v-else>
-          <!-- container movies -->
-          <div class="row gy-3 py-2" id="movies">
-            <h2>Movies</h2>
-            <div class="col-12 col-md-6 col-lg-4 col-xl-3" v-for="movie in filterMovies">
-              <div class="row justify-content-center">
-                <div class="col-7 col-md-10 col-lg-12">
-                  <AppCard :name="movie.title" :src="setCoverSrc(movie.poster_path)" :subtitle="movie.original_title"
-                    :srcFlag="setSrcFlag(movie.original_language)" :data1="movie.original_language"
-                    :data2="movie.vote_average" :id="movie.id" :overview="movie.overview" :actors="movie.cast"
-                    :genres="movie.genresFounds" @get-info="getCreditAndGen($event, movie)" />
-                  <!--  /> -->
+          <div v-if="filterMovies < 1">
+            Nessun risultato
+          </div>
+          <div v-else>
+            <!-- container movies -->
+            <div class="row gy-3 py-2" id="movies">
+              <h2>Movies</h2>
+              <div class="col-12 col-md-6 col-lg-4 col-xl-3" v-for="movie in filterMovies">
+                <div class="row justify-content-center">
+                  <div class="col-7 col-md-10 col-lg-12">
+                    <AppCard :name="movie.title" :src="setCoverSrc(movie.poster_path)" :subtitle="movie.original_title"
+                      :srcFlag="setSrcFlag(movie.original_language)" :data1="movie.original_language"
+                      :data2="movie.vote_average" :id="movie.id" :overview="movie.overview" :actors="movie.cast"
+                      :genres="movie.genresFounds" @get-info="getCreditAndGen($event, movie)" />
+                    <!--  /> -->
+                  </div>
                 </div>
-              </div>
 
 
 
-              <!-- <div>titolo :{{ movie.title }}</div>
+                <!-- <div>titolo :{{ movie.title }}</div>
             <div>original title :{{ movie.original_title }}</div>
             <div>original lang :{{ movie.original_language }}</div>
             <div>Vote :{{ movie.vote_average }}/10</div> -->
+              </div>
             </div>
+
           </div>
-          <!-- container series -->
-          <div class="row gy-3 py-2" id="series">
-            <h2>Series TV</h2>
-            <div class="col-12 col-md-6 col-lg-4 col-xl-3" v-for="serie in filterSeries">
-              <div class="row justify-content-center">
-                <div class="col-7 col-md-10 col-lg-12">
-                  <AppCard :name="serie.name" :subtitle="serie.original_name" :data1="serie.original_language"
-                    :data2="serie.vote_average" :id="serie.id" :src="setCoverSrc(serie.poster_path)"
-                    :srcFlag="setSrcFlag(serie.original_language)" :actors="serie.cast" :genres="serie.genresFounds"
-                    :overview="serie.overview" @get-info="getCreditAndGen($event, serie)" />
+          <div v-if="filterSeries < 1">
+            Nessun risultato
+          </div>
+          <div v-else>
+            <!-- container series -->
+            <div class="row gy-3 py-2" id="series">
+              <h2>Series TV</h2>
+              <div class="col-12 col-md-6 col-lg-4 col-xl-3" v-for="serie in filterSeries">
+                <div class="row justify-content-center">
+                  <div class="col-7 col-md-10 col-lg-12">
+                    <AppCard :name="serie.name" :subtitle="serie.original_name" :data1="serie.original_language"
+                      :data2="serie.vote_average" :id="serie.id" :src="setCoverSrc(serie.poster_path)"
+                      :srcFlag="setSrcFlag(serie.original_language)" :actors="serie.cast" :genres="serie.genresFounds"
+                      :overview="serie.overview" @get-info="getCreditAndGen($event, serie)" />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+
         </div>
 
 
@@ -75,7 +89,8 @@ export default {
       store,
       srcString: `./images/flags/`,
       errorLang: ['ca', 'de', 'en', 'fr', 'it', 'jp', 'kr', 'us'],
-      onLoading: false
+      onLoading: false,
+      //noResult: false
 
 
     };
@@ -224,6 +239,7 @@ export default {
   created() {
 
     this.getGenre()
+    //console.log(Boolean(this.filterMovies))
 
   },
   computed: {
@@ -235,19 +251,26 @@ export default {
           return el.genre_ids.includes(this.store.selected);
 
         })
+
         return filtered;
       } else {
         return this.store.movieList;
       }
     },
     filterSeries() {
+      //this.noResult = false;
       if (this.store.selected && this.store.seriesList) {
         const filtered = this.store.seriesList.filter(el => {
           //console.log(el.genre_ids);
           //console.log(this.store.selected);
           return el.genre_ids.includes(this.store.selected);
 
-        })
+        });
+        // if (!filtered) {
+        //   this.noResult = true;
+        //   console.log(filtered);
+        //   console.log(this.noResult);
+        // }
         return filtered;
       } else {
         return this.store.seriesList;
