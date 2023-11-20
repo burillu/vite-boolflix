@@ -4,7 +4,7 @@
       <AppHeader @search-input="queryModify" />
     </header>
     <main class="bg-secondary h-100 py-4">
-      <AppSelectLang />
+      <AppSelectLang @change-lang="filterLang" />
       <div class="container">
 
         <div v-if="onLoading" class="">
@@ -269,6 +269,13 @@ export default {
       });
       //return top_ratedList;
 
+    },
+    filterLang() {
+      if (store.movieList.lenght > 0) {
+        return
+      }
+      console.log('lingua cambiata')
+      this.getTop_rated()
     }
 
   },

@@ -23,7 +23,11 @@ export default {
     },
     methods: {
         selectLang() {
+            if (this.store.params.language === this.selectLang) {
+                return
+            }
             this.store.params.language = this.selectedLang;
+            this.$emit('changeLang')
         }
     }
 }
